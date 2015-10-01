@@ -1,12 +1,24 @@
 package com.chameleoncompany.chameleon;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -14,10 +26,63 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    // Attributes
+    private String[] mNavList;
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private CharSequence mDrawerTitle;
+    private CharSequence mTitle;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        // Instantiate mTitle
+        mTitle = mDrawerTitle = getTitle();
+
+        mNavList = getResources().getStringArray(R.array.items_list);
+
+        // Hook up attributes with correct ids
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+
+        // Set the adapter for the list view
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.draw_list, mNavList));
+
+
+
+        // Instantiate mDrawerToggle with actionbar
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                R.string.drawer_open, R.string.drawer_close)
+        {
+            // Calls this method when the drawer is closed
+            public void onDrawerClosed(View view){
+                super.onDrawerClosed(view);
+                getSupportActionBar().setTitle(mTitle);
+
+                // Call onPrepareOptionsMenu()
+               // invalidateOptionsMenu();;
+            }
+
+            // Calls method when the drawer is open
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getSupportActionBar().setTitle(mDrawerTitle);
+
+                // Call onPrepareOptionsMenu()
+                // invalidateOptionsMenu();;
+            }
+        };
+
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerList);
         LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -26,6 +91,14 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(new cycleViewAdapter(generatePalettes()));
     }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+
 
     private ArrayList<Palette> generatePalettes(){
         ArrayList<Palette> palettes = new ArrayList<>();
@@ -48,16 +121,60 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    /*
+    private class DrawerItemClickListener implements ListView.OnItemClickListener{
+     @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+         selectItem(position);
+     }
+    }
+
+   private void selectItem(int position){
+        Fragment fragment = null;
+
+        switch(position){
+            case 0:
+                fragment = new CreateFragment();
+                break;
+            case 1:
+                fragment = new CreateFragment();
+                break;
+            case 2:
+                fragment = new CreateFragment();
+                break;
+            default:
+                break;
+        }
+
+       if(fragment != null){
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+
+        mDrawerList.setItemChecked(position,true);
+        mDrawerList.setSelection(position);
+        getSupportActionBar().setTitle(mNavList[position]);
+        mDrawerLayout.closeDrawer(mDrawerList);
+    }
+       else
+       {
+           Log.e("MainActivity", "Unable to create fragment");
+       }
+}
+
+    public class CreateFragment extends Fragment{
+        public CreateFragment()
+        {
+            @Override
+                    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle)
+        }
+    }*/
 }

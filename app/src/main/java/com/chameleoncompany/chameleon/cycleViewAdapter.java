@@ -13,6 +13,7 @@ import java.util.List;
 public class cycleViewAdapter extends RecyclerView.Adapter<PaletteViewHolder> {
     private List<Palette> palettes;
 
+
     public cycleViewAdapter(List<Palette> palettes){
         this.palettes = new ArrayList<Palette>();
         this.palettes.addAll(palettes);
@@ -31,9 +32,8 @@ public class cycleViewAdapter extends RecyclerView.Adapter<PaletteViewHolder> {
     public void onBindViewHolder(PaletteViewHolder paletteViewHolder, int i) {
         Palette palette = palettes.get(i);
         paletteViewHolder.titleText.setText(palette.getName());
-        paletteViewHolder.contentText.setText(palette.getHexValue());
 
-        paletteViewHolder.titleText.setBackgroundColor(palette.getIntValue());
+        paletteViewHolder.s1.setBackgroundColor(palette.getIntValue());
         paletteViewHolder.contentText.setBackgroundColor(palette.getVal());
         paletteViewHolder.s3.setBackgroundColor(palette.getS3());
         paletteViewHolder.s4.setBackgroundColor(palette.getS4());

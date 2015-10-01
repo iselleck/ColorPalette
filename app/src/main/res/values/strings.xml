@@ -1,6 +1,18 @@
 <resources>
     <string name="app_name">Chameleon</string>
-
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string-array name="items_list">
+        <item>Palettes</item>
+        <item>Placeholder</item>
+        <item>Placeholder</item>
+    </string-array>
+
+    <string name="drawer_open"> Opens the Drawer Nav drawer</string>
+    <string name="drawer_close"> Closes the Drawer Nav drawer</string>
+    <string name="title_activity_inspect">inspectActivity</string>
+    <string name="transition_details"></string>
+    <string name="hello_world">Hello world!</string>
+
+
 </resources>
