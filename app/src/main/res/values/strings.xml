@@ -10,9 +10,12 @@
 
     <string name="drawer_open"> Opens the Drawer Nav drawer</string>
     <string name="drawer_close"> Closes the Drawer Nav drawer</string>
+<<<<<<< HEAD
     <string name="title_activity_inspect">inspectActivity</string>
     <string name="transition_details"></string>
     <string name="hello_world">Hello world!</string>
+=======
+>>>>>>> origin/master
 
 
 </resources>

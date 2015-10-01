@@ -2,7 +2,10 @@ package com.chameleoncompany.chameleon;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+<<<<<<< HEAD
 import android.content.Intent;
+=======
+>>>>>>> origin/master
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -34,13 +37,19 @@ public class MainActivity extends AppCompatActivity {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
         // Instantiate mTitle
         mTitle = mDrawerTitle = getTitle();
 
